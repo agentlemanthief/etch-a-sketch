@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" type="text/css" href="main.css"/>
+  </head>
+
+  <body>
+    <h1>Etch-a-Sketch</h1>
+    <div id="container">
+      
+    </div>
+    <script>
+      const containerDiv = document.querySelector('#container');
+      const gridSize = getGridSize();
+
+      drawGrid();
+
+      function getGridSize() {
+        let answer = parseInt(prompt('Enter a number between 1 and 100 \nto create a square grid', ''));
+        console.log(answer);
+        if (isNaN(answer) || answer < 0 || answer === '') {
+          while (isNaN(answer)) {
+            alert('Please ensure a number between 1 and 100 is entered');
+            answer = parseInt(prompt('Enter a number between 1 and 100 \nto create a square grid', ''));
+          }
+          return answer;
+        } else {
+          return answer;
+        }
+      }
+      
+      function drawGrid() {
+        for (let i = 0; i < gridSize; i++) {
+          let column = document.createElement('div');
+          column.style.cssText = `grid-template-columns: repeat(${gridSize}, 0fr);`;
+          containerDiv.appendChild(column).className = 'grid-cell';
+            for (let j = 1; j < gridSize; j++) {
+              let row = document.createElement('div');
+              containerDiv.appendChild(row).className = 'grid-cell';
+            }
+        }
+      }
+      containerDiv.style.cssText = `grid-template-columns: repeat(${gridSize}, 0fr);`;
+    </script>
+  </body>
+</html>
