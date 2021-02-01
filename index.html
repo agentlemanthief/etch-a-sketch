@@ -8,13 +8,20 @@
 
   <body>
     <h1>Etch-a-Sketch</h1>
+    <button id='reset'>Reset Grid</button>
     <div id="container">
       
     </div>
     <script>
       const containerDiv = document.querySelector('#container');
+      const gridCell = document.querySelector('.grid-cell');
       const gridSize = getGridSize();
+      const resetButton = document.querySelector('#reset');
 
+      resetButton.addEventListener('click', getGridSize);
+      
+      containerDiv.style.cssText = `grid-template-columns: repeat(${gridSize}, 0fr);`;
+      
       drawGrid();
 
       function getGridSize() {
@@ -34,15 +41,21 @@
       function drawGrid() {
         for (let i = 0; i < gridSize; i++) {
           let column = document.createElement('div');
-          column.style.cssText = `grid-template-columns: repeat(${gridSize}, 0fr);`;
           containerDiv.appendChild(column).className = 'grid-cell';
+          column.addEventListener('mouseover', () => {
+            column.style.backgroundColor = 'black';
+          });
             for (let j = 1; j < gridSize; j++) {
               let row = document.createElement('div');
               containerDiv.appendChild(row).className = 'grid-cell';
+              row.addEventListener('mouseover', () => {
+                row.style.backgroundColor = 'black';
+              });
             }
         }
       }
-      containerDiv.style.cssText = `grid-template-columns: repeat(${gridSize}, 0fr);`;
+
+      
     </script>
   </body>
 </html>
