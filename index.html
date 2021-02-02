@@ -18,12 +18,13 @@
       const gridSize = getGridSize();
       const resetButton = document.querySelector('#reset');
 
-      resetButton.addEventListener('click', getGridSize);
+      resetButton.addEventListener('click', function () {
+        drawGrid(getGridSize());
+      });
       
-      containerDiv.style.cssText = `grid-template-columns: repeat(${gridSize}, 0fr);`;
       
-      drawGrid();
-
+      drawGrid(gridSize);
+      
       function getGridSize() {
         let answer = parseInt(prompt('Enter a number between 1 and 100 \nto create a square grid', ''));
         console.log(answer);
@@ -38,23 +39,25 @@
         }
       }
       
-      function drawGrid() {
-        for (let i = 0; i < gridSize; i++) {
+      function drawGrid(size) {
+        containerDiv.textContent = '';
+        for (let i = 0; i < size; i++) {
           let column = document.createElement('div');
           containerDiv.appendChild(column).className = 'grid-cell';
           column.addEventListener('mouseover', () => {
             column.style.backgroundColor = 'black';
           });
-            for (let j = 1; j < gridSize; j++) {
-              let row = document.createElement('div');
-              containerDiv.appendChild(row).className = 'grid-cell';
-              row.addEventListener('mouseover', () => {
-                row.style.backgroundColor = 'black';
-              });
-            }
+          for (let j = 1; j < size; j++) {
+            let row = document.createElement('div');
+            containerDiv.appendChild(row).className = 'grid-cell';
+            row.addEventListener('mouseover', () => {
+              row.style.backgroundColor = 'black';
+            });
+          }
         }
+        containerDiv.style.cssText = `grid-template-columns: repeat(${size}, 0fr);`;
       }
-
+      
       
     </script>
   </body>
