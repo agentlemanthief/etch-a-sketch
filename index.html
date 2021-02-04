@@ -97,7 +97,7 @@
               this.style.backgroundColor = `hsl(0, 0%, ${(light -= 10)}%)`;
             }
           });
-          cell.addEventListener('touchstart', function () {
+          cell.addEventListener('touchmove', function () {
             if(light >= 0) {
               this.style.backgroundColor = `hsl(0, 0%, ${(light -= 10)}%)`;
             }
