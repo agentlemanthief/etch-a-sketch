@@ -8,22 +8,37 @@
 
   <body>
     <h1>Etch-a-Sketch</h1>
-    <button id='reset'>Reset Grid</button>
+    <button id='reset-button'>Reset Grid</button>
+    <button id='random-color-button'>Random Colour</button>
+    <button id='greyscale-button'>Greyscale</button>
     <div id="container">
       
     </div>
     <script>
       const containerDiv = document.querySelector('#container');
-      const gridCell = document.querySelector('.grid-cell');
-      const gridSize = getGridSize();
-      const resetButton = document.querySelector('#reset');
+      const gridCell = document.getElementsByClassName('grid-cell');
+      let gridSize;
+      const resetButton = document.querySelector('#reset-button');
+      const randomColorButton = document.querySelector('#random-color-button');
+      const greyscaleButton = document.querySelector('#greyscale-button');
+
+      let drawColor = 'black';
+      let colors = ['red', 'green', 'blue', 'indigo', 'violet'];
 
       resetButton.addEventListener('click', function () {
         drawGrid(getGridSize());
       });
+
+      randomColorButton.addEventListener('click', function () {
+        randomDrawColor();
+      });
+
+      greyscaleButton.addEventListener('click', function () {
+        greyscaleDraw();
+      });
       
       
-      drawGrid(gridSize);
+      drawGrid(getGridSize());
       
       function getGridSize() {
         let answer = parseInt(prompt('Enter a number between 1 and 100 \nto create a square grid', ''));
@@ -33,8 +48,10 @@
             alert('Please ensure a number between 1 and 100 is entered');
             answer = parseInt(prompt('Enter a number between 1 and 100 \nto create a square grid', ''));
           }
+          gridSize = answer;
           return answer;
         } else {
+          gridSize = answer;
           return answer;
         }
       }
@@ -44,21 +61,50 @@
         for (let i = 0; i < size; i++) {
           let column = document.createElement('div');
           containerDiv.appendChild(column).className = 'grid-cell';
+          gridCell[i].style.cssText = `width: ${(500 / size) - 1}px;`;
           column.addEventListener('mouseover', () => {
-            column.style.backgroundColor = 'black';
+            column.style.backgroundColor = `${drawColor}`;
           });
           for (let j = 1; j < size; j++) {
             let row = document.createElement('div');
             containerDiv.appendChild(row).className = 'grid-cell';
             row.addEventListener('mouseover', () => {
-              row.style.backgroundColor = 'black';
+              row.style.backgroundColor = `${drawColor}`;
             });
           }
         }
-        containerDiv.style.cssText = `grid-template-columns: repeat(${size}, 0fr);`;
+        containerDiv.style.cssText = `grid-template-columns: repeat(${size}, 1fr);`;
       }
-      
-      
+
+      function randomDrawColor() {
+        drawGrid(gridSize);
+        let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+        let cells = document.getElementsByClassName('grid-cell');
+        for(let x = 0; x < cells.length; x++) {
+          cells[x].addEventListener('mouseover', () => {
+            cells[x].style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          });
+        }
+      }
+
+      function greyscaleDraw() {
+        drawGrid(gridSize);
+        let cells = document.querySelectorAll('.grid-cell');
+        cells.forEach((cell) => {
+          let light = 100;
+          cell.addEventListener('mouseover', function () {
+            if(light >= 0) {
+              this.style.backgroundColor = `hsl(0, 0%, ${(light -= 10)}%)`;
+            }
+          });
+          cell.addEventListener('touchmove', function () {
+            if(light >= 0) {
+              this.style.backgroundColor = `hsl(0, 0%, ${(light -= 10)}%)`;
+            }
+          });
+        });
+      }
+
     </script>
   </body>
 </html>

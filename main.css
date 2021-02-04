@@ -1,14 +1,11 @@
 #container {
   display: grid;
-  width: 90%;
+  max-width: 500px;
+  min-height: 500px;
+  margin: auto;
+  border: 2px solid black;
 }
 
 .grid-cell {
-  height: 20px;
-  width: 20px;
   border: solid 0.5px black;
-}
-
-.grid-cell:hover {
-  background-color: black;
-}
+} 
