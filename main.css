@@ -1,11 +1,16 @@
-#container {
-  display: grid;
-  max-width: 500px;
-  min-height: 500px;
-  margin: auto;
-  border: 2px solid black;
+body {
+  display:block;
+  text-align: center;
 }
 
 .grid-cell {
   border: solid 0.5px black;
 } 
+
+#container {
+  display: grid;
+  max-width: 500px;
+  min-height: 500px;
+  margin: 2em auto;
+  border: 2px solid black;
+}
